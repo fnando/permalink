@@ -28,21 +28,16 @@ module SimplesIdeias
         # has_permalink :title
         # has_permalink :title => :custom_permalink_field
         # has_permalink :title => :permalink, :to_param => [:id, :permalink]
-        def has_permalink(options)
-          from = options
-          to = :permalink
-          to_param = [self.primary_key, to]
-          
-          if options.is_a?(Hash)
-            from = options.keys.first
-            to = options[from]
-            to_param = options[:to_param] if options.key?(:to_param)
-          end
+        def has_permalink(from, options={})
+          options = {
+            :to => :permalink,
+            :to_param => [:id, :permalink]
+          }.merge(options)
           
           self.has_permalink_options = {
             :from_column_name => from,
-            :to_column_name => to,
-            :to_param => to_param
+            :to_column_name => options[:to],
+            :to_param => options[:to_param]
           }
           
           include SimplesIdeias::Acts::Permalink::InstanceMethods
