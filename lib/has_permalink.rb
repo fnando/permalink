@@ -81,7 +81,9 @@ module SimplesIdeias
           end
           
           def create_permalink
-            write_attribute(to_permalink_name, from_permalink_value.to_s.to_permalink) unless from_permalink_value.blank? || to_permalink_value
+            unless from_permalink_value.blank? || !to_permalink_value.blank?
+              write_attribute(to_permalink_name, from_permalink_value.to_s.to_permalink)
+            end
           end
       end
     end

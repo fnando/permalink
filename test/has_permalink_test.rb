@@ -50,6 +50,18 @@ class HasPermalinkTest < ActiveSupport::TestCase
     assert_equal "1-john-doe", user.to_param
   end
   
+  test "should set permalink if permalink is blank" do
+    user = create_user(:permalink => " ")
+    user.reload
+    assert_equal "john-doe", user.permalink
+  end
+  
+  test "should keep defined permalink" do
+    user = create_beer(:permalink => "jdoe")
+    user.reload
+    assert_equal "jdoe", user.permalink
+  end
+  
   private
     def create_beer(options={})
       Beer.create({:name => 'Duff'}.merge(options))
