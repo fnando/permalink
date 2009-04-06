@@ -27,6 +27,7 @@ module SimplesIdeias
       module ClassMethods
         # has_permalink :title
         # has_permalink :title => :custom_permalink_field
+        # has_permalink :title => :permalink, :to_param => [:id, :permalink]
         def has_permalink(options)
           from = options
           to = :permalink
@@ -53,13 +54,13 @@ module SimplesIdeias
       
       module InstanceMethods
         def to_param
-          self.class.has_permalink_options[:to_param].collect do |name| 
+          self.class.has_permalink_options[:to_param].compact.collect do |name| 
             if respond_to?(name)
-              send(name)
+              send(name).to_s
             else
-              name
+              name.to_s
             end
-          end.join('-')
+          end.reject(&:blank?).join('-')
         end
         
         private
