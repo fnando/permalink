@@ -1,7 +1,12 @@
 ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("../../../../config/environment")
+
+begin
 require "ruby-debug"
+rescue LoadError
+end
+
 require "test_help"
 
 class Object

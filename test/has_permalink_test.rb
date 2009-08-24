@@ -1,3 +1,4 @@
+# encoding: utf-8
 require "test_helper"
 
 class HasPermalinkTest < ActiveSupport::TestCase
@@ -80,6 +81,14 @@ class HasPermalinkTest < ActiveSupport::TestCase
     user = create_beer(:permalink => "jdoe")
     user.reload
     assert_equal "jdoe", user.permalink
+  end
+  
+  test "should create unique permalinks for number-ended titles" do
+    post1 = create_post(:title => "Rails 3")
+    assert_equal "rails-3", post1.permalink
+    
+    post2 = create_post(:title => "Rails 3")
+    assert_equal "rails-3-2", post2.permalink
   end
   
   private
