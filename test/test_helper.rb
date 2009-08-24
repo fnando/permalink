@@ -16,7 +16,7 @@ class Object
 end
 
 # unset models used for testing purposes
-Object.unset_class('Donut', 'Beer')
+Object.unset_class('Donut', 'Beer', 'Post', 'User')
 
 Dir.glob(File.dirname(__FILE__) + "/models/*.rb").each {|r| require r }
 

@@ -8,7 +8,8 @@ class HasPermalinkTest < ActiveSupport::TestCase
     '中文測試 chinese text' => 'chinese-text',
     'some-)()()-ExtRa!/// .data==?>    to \/\/test' => 'some-extra-data-to-test',
     'http://simplesideias.com.br/tags/' => 'http-simplesideias-com-br-tags',
-    "Don't Repeat Yourself (DRY)" => 'don-t-repeat-yourself-dry'
+    "Don't Repeat Yourself (DRY)" => 'don-t-repeat-yourself-dry',
+    "Text\nwith\nline\n\n\tbreaks" => 'text-with-line-breaks'
   }
   
   test "should create permalink using to_permalink" do
@@ -33,6 +34,25 @@ class HasPermalinkTest < ActiveSupport::TestCase
     beer.update_attribute(:name, 'Duff Premium')
     beer.reload
     assert_equal 'duff-premium', beer.permalink
+  end
+  
+  test "should create unique permalinks" do
+    post1 = create_post(:title => 'Ruby is a beautiful language')
+    assert_equal "ruby-is-a-beautiful-language", post1.permalink
+    
+    post2 = create_post(:title => 'Ruby is a beautiful language')
+    assert_equal "ruby-is-a-beautiful-language-2", post2.permalink
+    
+    post3 = create_post(:title => 'Ruby is a beautiful language')
+    assert_equal "ruby-is-a-beautiful-language-3", post3.permalink
+  end
+  
+  test "return to_param for unique permalink" do
+    post1 = create_post(:title => 'Ruby')
+    assert_equal post1.to_param, 'ruby'
+    
+    post2 = create_post(:title => 'Ruby')
+    assert_equal post2.to_param, 'ruby-2'
   end
   
   test "should override to_param method" do
@@ -73,5 +93,9 @@ class HasPermalinkTest < ActiveSupport::TestCase
     
     def create_user(options={})
       User.create({:name => 'John Doe'}.merge(options))
+    end
+    
+    def create_post(options={})
+      Post.create({:title => 'Some nice post!'}.merge(options))
     end
 end
