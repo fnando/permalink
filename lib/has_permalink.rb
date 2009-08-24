@@ -67,7 +67,7 @@ module SimplesIdeias
             if self.class.has_permalink_options[:unique]
               suffix = 2
               
-              while self.class.first(:conditions => {to_permalink_name => the_permalink})
+              while self.class.first(:conditions => {to_permalink_name => the_permalink}, :select => self.class.primary_key)
                 the_permalink = "#{_permalink}-#{suffix}"
                 suffix += 1
               end
