@@ -1,19 +1,19 @@
-require 'rake/testtask'
-require 'lib/permalink/version'
+require "rake/testtask"
+require File.dirname(__FILE__) + "/lib/permalink/version"
 
-desc 'Default: run unit tests.'
+desc "Default: run unit tests."
 task :default => :test
 
-desc 'Test the i18n-js plugin.'
+desc "Test the i18n-js plugin."
 Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
+  t.libs << "lib"
+  t.libs << "test"
+  t.pattern = "test/**/*_test.rb"
   t.verbose = true
 end
 
 begin
-  require 'jeweler'
+  require "jeweler"
 
   JEWEL = Jeweler::Tasks.new do |gem|
     gem.name = "permalink"
