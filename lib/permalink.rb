@@ -1,4 +1,5 @@
 require "permalink/string_ext"
+require "active_record"
 
 module SimplesIdeias
   module Permalink
