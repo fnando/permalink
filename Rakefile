@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + "/lib/permalink/version"
 desc "Default: run unit tests."
 task :default => :test
 
-desc "Test the i18n-js plugin."
+desc "Run tests"
 Rake::TestTask.new(:test) do |t|
   t.libs << "lib"
   t.libs << "test"
@@ -18,11 +18,11 @@ begin
   JEWEL = Jeweler::Tasks.new do |gem|
     gem.name = "permalink"
     gem.email = "fnando.vieira@gmail.com"
-    gem.homepage = "http://github.com/fnando/has_permalink"
+    gem.homepage = "http://github.com/fnando/permalink"
     gem.authors = ["Nando Vieira"]
-    gem.version = SimplesIdeias::Permalink::Version::STRING
+    gem.version = Permalink::Version::STRING
     gem.summary = "ActiveRecord plugin for automatically converting fields to permalinks."
-    gem.files =  FileList["README.markdown", "init.rb", "{lib,test}/**/*", "Rakefile"]
+    gem.files =  FileList["README.markdown", "{lib,test}/**/*", "Rakefile"]
   end
 
   Jeweler::GemcutterTasks.new
