@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{permalink}
-  s.version = "0.1.1"
+  s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nando Vieira"]
-  s.date = %q{2010-09-09}
+  s.date = %q{2010-10-06}
   s.email = %q{fnando.vieira@gmail.com}
   s.extra_rdoc_files = [
     "README.markdown"
@@ -17,7 +17,6 @@ Gem::Specification.new do |s|
   s.files = [
     "README.markdown",
      "Rakefile",
-     "init.rb",
      "lib/permalink.rb",
      "lib/permalink/string_ext.rb",
      "lib/permalink/version.rb",
@@ -29,7 +28,7 @@ Gem::Specification.new do |s|
      "test/schema.rb",
      "test/test_helper.rb"
   ]
-  s.homepage = %q{http://github.com/fnando/has_permalink}
+  s.homepage = %q{http://github.com/fnando/permalink}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
