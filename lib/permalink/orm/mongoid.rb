@@ -11,7 +11,7 @@ module Permalink
         include InstanceMethods
 
         options = { :to => :permalink,
-                    :to_param => [:id, :permalink],
+                    :to_param => :permalink,
                     :unique => false }.merge(options)
 
         self.permalink_options = { :from_column_name => from,

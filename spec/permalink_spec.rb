@@ -170,6 +170,11 @@ describe Permalink do
       cookie = create_cookie(:flavor => "Dark Chocolate")
       cookie.id.should == cookie.slug
     end
+
+    it "should generate id as permalink" do
+      article = create_article(:title => "Ruby on Rails 3")
+      article.id.should == "ruby-on-rails-3"
+    end
   end
 
   private
