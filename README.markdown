@@ -6,6 +6,11 @@ Instalation
 
 	gem install permalink
 
+ORMs
+-----------
+
+Permalink supports ActiveRecord and Mongoid.
+
 Usage
 -----
 
