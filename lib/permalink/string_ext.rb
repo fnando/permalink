@@ -8,4 +8,16 @@ class String
     str.downcase!
     str
   end
+
+  def identify
+    begin
+      if Mongoid.parameterize_keys
+        gsub(/[^a-z0-9]+/, ' ').strip.gsub(' ', '-')
+      else
+        self
+      end
+    rescue
+      self
+    end
+  end
 end
