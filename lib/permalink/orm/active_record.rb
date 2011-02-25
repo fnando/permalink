@@ -16,16 +16,16 @@ module Permalink
         # permalink :title, :unique => true
         def permalink(from, options={})
           options = {
-            :to => :permalink,
+            :to       => :permalink,
             :to_param => [:id, :permalink],
-            :unique => false
+            :unique   => false
           }.merge(options)
 
           self.permalink_options = {
             :from_column_name => from,
-            :to_column_name => options[:to],
-            :to_param => [options[:to_param]].flatten,
-            :unique => options[:unique]
+            :to_column_name   => options[:to],
+            :to_param         => [options[:to_param]].flatten,
+            :unique           => options[:unique]
           }
 
           include InstanceMethods
@@ -45,7 +45,7 @@ module Permalink
             else
               name.to_s
             end
-          end.reject(&:blank?).join('-')
+          end.reject(&:blank?).join("-")
         end
 
         private
