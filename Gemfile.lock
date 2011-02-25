@@ -24,15 +24,23 @@ GEM
     columnize (0.3.2)
     diff-lcs (1.1.2)
     i18n (0.5.0)
+    jnunemaker-validatable (1.8.4)
+      activesupport (>= 2.3.4)
     linecache19 (0.5.11)
       ruby_core_source (>= 0.1.4)
     mongo (1.2.2)
       bson (>= 1.2.2)
+    mongo_mapper (0.8.6)
+      activesupport (>= 2.3.4)
+      jnunemaker-validatable (~> 1.8.4)
+      plucky (~> 0.3.6)
     mongoid (2.0.0.rc.7)
       activemodel (~> 3.0)
       mongo (~> 1.2)
       tzinfo (~> 0.3.22)
       will_paginate (~> 3.0.pre)
+    plucky (0.3.6)
+      mongo (~> 1.1)
     rspec (2.5.0)
       rspec-core (~> 2.5.0)
       rspec-expectations (~> 2.5.0)
@@ -64,6 +72,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   bson_ext
+  mongo_mapper (~> 0.8.6)
   mongoid (~> 2.0.0.rc.7)
   permalink!
   rspec (~> 2.5.0)

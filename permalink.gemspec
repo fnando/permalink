@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "test-unit"
   s.add_development_dependency "rspec", "~> 2.5.0"
   s.add_development_dependency "mongoid", "~> 2.0.0.rc.7"
+  s.add_development_dependency "mongo_mapper", "~> 0.8.6"
   s.add_development_dependency "bson_ext"
   s.add_development_dependency "ruby-debug19" if RUBY_VERSION >= "1.9"
 end

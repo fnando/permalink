@@ -1,9 +1,7 @@
 require "spec_helper"
 
-describe Permalink::Orm::Mongoid do
-  before { pending }
-
-  let(:model) { Article }
+describe Permalink::Orm::MongoMapper do
+  let(:model) { Page }
   it_should_behave_like "orm"
 
   it "should override to_param method" do
