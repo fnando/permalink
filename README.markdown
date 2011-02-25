@@ -51,7 +51,7 @@ to generate a permalink when `before_save` callback is evaluated and the instanc
 
 ## License
 
-Copyright (c) 2008 Nando Vieira, released under the MIT license
+Copyright (c) 2011 Nando Vieira, released under the MIT license
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
