@@ -4,6 +4,10 @@ shared_examples_for "orm" do
     model.permalink :title
   end
 
+  it "should respond to options" do
+    model.should respond_to(:permalink_options)
+  end
+
   it "should use default options" do
     model.permalink :title
     record = model.create(:title => "Some nice post")
@@ -44,11 +48,6 @@ shared_examples_for "orm" do
 
     record = model.create(:title => "Ruby")
     record.to_param.should == "ruby-2"
-  end
-
-  it "should override to_param method" do
-    record = model.create(:title => "Some nice post")
-    record.to_param.should == "#{record.id}-some-nice-post"
   end
 
   it "should override to_param with custom fields" do
