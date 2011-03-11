@@ -1,23 +1,23 @@
 PATH
   remote: .
   specs:
-    permalink (1.0.0)
+    permalink (1.1.0)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    activemodel (3.0.4)
-      activesupport (= 3.0.4)
+    activemodel (3.0.5)
+      activesupport (= 3.0.5)
       builder (~> 2.1.2)
       i18n (~> 0.4)
-    activerecord (3.0.4)
-      activemodel (= 3.0.4)
-      activesupport (= 3.0.4)
+    activerecord (3.0.5)
+      activemodel (= 3.0.5)
+      activesupport (= 3.0.5)
       arel (~> 2.0.2)
       tzinfo (~> 0.3.23)
-    activesupport (3.0.4)
+    activesupport (3.0.5)
     archive-tar-minitar (0.5.2)
-    arel (2.0.8)
+    arel (2.0.9)
     bson (1.2.4)
     bson_ext (1.2.4)
     builder (2.1.2)
