@@ -9,8 +9,10 @@ describe "String#to_permalink" do
     '中文測試 chinese text' => 'chinese-text',
     'some-)()()-ExtRa!/// .data==?>    to \/\/test' => 'some-extra-data-to-test',
     'http://simplesideias.com.br/tags/' => 'http-simplesideias-com-br-tags',
-    "Don't Repeat Yourself (DRY)" => 'don-t-repeat-yourself-dry',
-    "Text\nwith\nline\n\n\tbreaks" => 'text-with-line-breaks'
+    "Don't Repeat Yourself (DRY)" => 'dont-repeat-yourself-dry',
+    "Text\nwith\nline\n\n\tbreaks" => 'text-with-line-breaks',
+    "can't do it" => "cant-do-it",
+    "i'm a dog" => "im-a-dog"
   }
 
   it "should create permalink using to_permalink" do
