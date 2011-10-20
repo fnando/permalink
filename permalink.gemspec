@@ -20,9 +20,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency "activerecord"
   s.add_development_dependency "sqlite3-ruby"
   s.add_development_dependency "test-unit"
-  s.add_development_dependency "rspec", "~> 2.5.0"
-  s.add_development_dependency "mongoid", "~> 2.0.0.rc.7"
-  s.add_development_dependency "mongo_mapper", "~> 0.8.6"
+  s.add_development_dependency "rspec", "~> 2.7"
+  s.add_development_dependency "mongoid", "~> 2.3"
+  s.add_development_dependency "mongo_mapper", "~> 0.9"
   s.add_development_dependency "bson_ext"
-  s.add_development_dependency "ruby-debug19" if RUBY_VERSION >= "1.9"
+  s.add_development_dependency "pry"
 end
