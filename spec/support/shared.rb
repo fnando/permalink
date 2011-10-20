@@ -61,7 +61,6 @@ shared_examples_for "orm" do
     model.permalink :title, :to_param => [:id, "    ", nil, "\t", :permalink]
 
     record = model.create(:title => "Some nice post")
-    record.reload
     record.to_param.should == "#{record.id}-some-nice-post"
   end
 

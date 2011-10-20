@@ -1,8 +1,6 @@
 require "spec_helper"
 
 describe Permalink::Orm::Mongoid do
-  before { pending }
-
   let(:model) { Article }
   it_should_behave_like "orm"
 
