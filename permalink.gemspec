@@ -25,4 +25,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "mongo_mapper", "~> 0.9"
   s.add_development_dependency "bson_ext"
   s.add_development_dependency "pry"
+  s.add_development_dependency "rake"
 end
