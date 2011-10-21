@@ -83,4 +83,13 @@ shared_examples_for "orm" do
     record = model.create(:title => "Rails 3")
     record.permalink.should == "rails-3-2"
   end
+
+  it "should force permalink" do
+    model.permalink :title, :force => true
+
+    record = model.create(:title => "Some nice post")
+    record.update_attributes :title => "Awesome post"
+
+    record.permalink.should == "awesome-post"
+  end
 end

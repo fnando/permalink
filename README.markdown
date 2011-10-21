@@ -4,7 +4,7 @@ Permalink
 Instalation
 -----------
 
-	gem install permalink
+    gem install permalink
 
 Usage
 -----
@@ -40,14 +40,20 @@ The above settings will generate something link `100-some-title-page`. By overri
 
 If you want to generate unique permalink, use the `:unique` option:
 
-	class Page < ActiveRecord::Base
-	  permalink :title, :unique => true, :to_param => :permalink
-	end
+    class Page < ActiveRecord::Base
+      permalink :title, :unique => true, :to_param => :permalink
+    end
 
 The permalink is generated using `ActiveSupport::Multibyte::Chars` class; this means that characters will properly replaced from `áéíó` to `aeio`, for instance.
 
 The permalink is created when `before_validation` callback is evaluated. This plugin also tries
 to generate a permalink when `before_save` callback is evaluated and the instance has no permalink set.
+
+You can force the permalink generation by setting the `:force` option.
+
+    class Page < ActiveRecord::Base
+      permalink :title, :force => true
+    end
 
 ## License
 
