@@ -92,4 +92,24 @@ shared_examples_for "orm" do
 
     record.permalink.should == "awesome-post"
   end
+
+  it "should force permalink and keep unique" do
+    model.permalink :title, :force => true, :unique => true
+
+    record = model.create(:title => "Some nice post")
+    record.update_attributes :title => "Awesome post"
+    record.permalink.should == "awesome-post"
+
+    record = model.create(:title => "Awesome post")
+    record.permalink.should == "awesome-post-2"
+  end
+
+  it "should keep same permalink when another field changes" do
+    model.permalink :title, :force => true, :unique => true
+
+    record = model.create(:title => "Some nice post")
+    record.update_attributes :description => "some description"
+
+    record.permalink.should == "some-nice-post"
+  end
 end
