@@ -69,7 +69,7 @@ module Permalink
         end
 
         def update_permalink?
-          self.class.permalink_options[:force] || to_permalink_value.blank?
+          changes[from_permalink_name] && (self.class.permalink_options[:force] || to_permalink_value.blank?)
         end
 
         def create_permalink
