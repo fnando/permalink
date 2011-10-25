@@ -37,19 +37,19 @@ module Permalink
         end
 
         private
-        def next_available_permalink(_permalink)
-          the_permalink = _permalink
+        def next_available_permalink(permalink)
+          unique_permalink = permalink
 
           if self.class.permalink_options[:unique]
             suffix = 2
 
-            while self.class.where(to_permalink_name => the_permalink).first
-              the_permalink = "#{_permalink}-#{suffix}"
+            while self.class.where(to_permalink_name => unique_permalink).first
+              unique_permalink = "#{permalink}-#{suffix}"
               suffix += 1
             end
           end
 
-          the_permalink
+          unique_permalink
         end
 
         def from_permalink_name
