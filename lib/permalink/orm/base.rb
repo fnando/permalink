@@ -43,13 +43,22 @@ module Permalink
           if self.class.permalink_options[:unique]
             suffix = 2
 
-            while self.class.where(to_permalink_name => the_permalink).first
+            while find_same_permalink(the_permalink)
               the_permalink = "#{_permalink}-#{suffix}"
               suffix += 1
             end
           end
 
           the_permalink
+        end
+
+        def find_same_permalink(_permalink)
+          repeated_permalink = self.class.where(to_permalink_name => _permalink).first
+          repeated_permalink if same_object_with_changes? repeated_permalink
+        end
+
+        def same_object_with_changes?(object)
+          self != object || from_permalink_value != object.send(from_permalink_name)
         end
 
         def from_permalink_name
