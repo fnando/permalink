@@ -61,11 +61,11 @@ module Permalink
         end
 
         def from_permalink_value
-          read_attribute(from_permalink_name)
+          send(from_permalink_name)
         end
 
         def to_permalink_value
-          read_attribute(to_permalink_name)
+          send(to_permalink_name)
         end
 
         def update_permalink?
@@ -74,7 +74,7 @@ module Permalink
 
         def create_permalink
           if update_permalink?
-            write_attribute(to_permalink_name, next_available_permalink(from_permalink_value.to_s.to_permalink))
+            send("#{to_permalink_name}=", next_available_permalink(from_permalink_value.to_s.to_permalink))
           end
         end
       end
