@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require "permalink/version"
+require "./lib/permalink/version"
 
 Gem::Specification.new do |s|
   s.name        = "permalink"
@@ -20,10 +19,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency "activerecord"
   s.add_development_dependency "sqlite3-ruby"
   s.add_development_dependency "test-unit"
-  s.add_development_dependency "rspec", "~> 2.7"
-  s.add_development_dependency "mongoid", "~> 2.3"
-  s.add_development_dependency "mongo_mapper", "~> 0.9"
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "mongoid"
+  s.add_development_dependency "mongo_mapper"
   s.add_development_dependency "bson_ext"
-  s.add_development_dependency "pry"
+  s.add_development_dependency "pry-meta"
   s.add_development_dependency "rake"
 end

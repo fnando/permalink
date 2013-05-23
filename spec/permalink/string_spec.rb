@@ -2,7 +2,7 @@
 require "spec_helper"
 
 describe "String#to_permalink" do
-  SAMPLES = {
+  {
     'This IS a Tripped out title!!.!1  (well/ not really)' => 'this-is-a-tripped-out-title-1-well-not-really',
     '////// meph1sto r0x ! \\\\\\' => 'meph1sto-r0x',
     'āčēģīķļņū' => 'acegiklnu',
@@ -13,11 +13,9 @@ describe "String#to_permalink" do
     "Text\nwith\nline\n\n\tbreaks" => 'text-with-line-breaks',
     "can't do it" => "cant-do-it",
     "i'm a dog" => "im-a-dog"
-  }
-
-  it "should create permalink using to_permalink" do
-    SAMPLES.each do |from, to|
-      from.to_permalink.should == to
+  }.each do |from, to|
+    it "creates permalink for #{from}" do
+      expect(from.to_permalink).to eql(to)
     end
   end
 end

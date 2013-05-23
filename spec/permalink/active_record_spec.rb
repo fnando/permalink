@@ -2,12 +2,12 @@ require "spec_helper"
 
 describe Permalink::Orm::ActiveRecord do
   let(:model) { Post }
-  it_should_behave_like "orm"
+  it_behaves_like "orm"
 
-  it "should override to_param method" do
+  it "overrides to_param method" do
     model.permalink :title
 
     record = model.create(:title => "Some nice post")
-    record.to_param.should == "#{record.id}-some-nice-post"
+    expect(record.to_param).to eql("#{record.id}-some-nice-post")
   end
 end
