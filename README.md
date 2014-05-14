@@ -1,48 +1,55 @@
-Permalink
-=========
+# Permalink
 
-Instalation
------------
+## Instalation
 
     gem install permalink
 
-Usage
------
+## Usage
 
 Add the method call `permalink` to your model. Your model should have a `permalink` attribute.
 
-    class Page < ActiveRecord::Base
-      permalink :title
-    end
+```ruby
+class Page < ActiveRecord::Base
+  permalink :title
+end
+```
 
 You can specify the permalink field:
 
-    class page < ActiveRecord::Base
-      permalink :title, :to => :title_permalink
-    end
+```ruby
+class page < ActiveRecord::Base
+  permalink :title, :to => :title_permalink
+end
+```
 
 If you don't want to use `permalink`, you can call `'some text'.to_permalink` string method and
 manage the permalink process by yourself.
 
 Permalinks are not unique by default. `permalink` overrides `to_param` as following:
 
-    def to_param
-      "#{id}-#{permalink}"
-    end
+```ruby
+def to_param
+  "#{id}-#{permalink}"
+end
+```
 
 You can define the `to_param` format:
 
-    class Page < ActiveRecord::Base
-      permalink :title, :to_param => %w(id permalink page)
-    end
+```ruby
+class Page < ActiveRecord::Base
+  permalink :title, :to_param => %w(id permalink page)
+end
+```
 
 The above settings will generate something link `100-some-title-page`. By overriding `to_param` method you don't have to change a thing on your app routes.
 
 If you want to generate unique permalink, use the `:unique` option:
 
-    class Page < ActiveRecord::Base
-      permalink :title, :unique => true, :to_param => :permalink
-    end
+```ruby
+class Page < ActiveRecord::Base
+  permalink :title, :unique => true, :to_param => :permalink
+end
+```
 
 The permalink is generated using `ActiveSupport::Multibyte::Chars` class; this means that characters will properly replaced from `áéíó` to `aeio`, for instance.
 
@@ -51,9 +58,11 @@ to generate a permalink when `before_save` callback is evaluated and the instanc
 
 You can force the permalink generation by setting the `:force` option.
 
-    class Page < ActiveRecord::Base
-      permalink :title, :force => true
-    end
+```ruby
+class Page < ActiveRecord::Base
+  permalink :title, :force => true
+end
+```
 
 ## License
 

@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 require "./lib/permalink/version"
 
 Gem::Specification.new do |s|
@@ -18,11 +17,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "activerecord"
   s.add_development_dependency "sqlite3-ruby"
-  s.add_development_dependency "test-unit"
   s.add_development_dependency "rspec"
-  s.add_development_dependency "mongoid"
-  s.add_development_dependency "mongo_mapper"
-  s.add_development_dependency "bson_ext"
   s.add_development_dependency "pry-meta"
   s.add_development_dependency "rake"
 end
