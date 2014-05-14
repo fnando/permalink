@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    permalink (1.2.1)
+    permalink (1.2.2)
 
 GEM
   remote: https://rubygems.org/
