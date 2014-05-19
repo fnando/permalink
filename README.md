@@ -51,6 +51,24 @@ class Page < ActiveRecord::Base
 end
 ```
 
+The permalink can be tied to a given scope. Let's say you want to have unique permalinks by user. Just set the `:scope` option.
+
+```ruby
+class Page < ActiveRecord::Base
+  belongs_to :user
+  permalink :title, :unique => true, :scope => :user_id
+end
+
+user = User.first
+another_user = User.last
+
+page = user.pages.create(title: 'Hello')
+page.permalink #=> hello
+
+another_page = another_user.pages.create(title: 'Hello')
+another_page.permalink #=> hello
+```
+
 The permalink is generated using `ActiveSupport::Multibyte::Chars` class; this means that characters will properly replaced from `áéíó` to `aeio`, for instance.
 
 The permalink is created when `before_validation` callback is evaluated. This plugin also tries

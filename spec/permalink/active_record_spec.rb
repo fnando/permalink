@@ -44,6 +44,27 @@ describe Permalink::ActiveRecord do
     expect(record.permalink).to eq("some-nice-post-3")
   end
 
+  it "creates unique permalinks based on scope" do
+    model.permalink :title, :unique => true, :scope => :user_id
+
+    user = User.create!
+    another_user = User.create!
+
+    # Create posts for user
+    record = model.create(:title => "Some nice post", :user => user)
+    expect(record.permalink).to eq("some-nice-post")
+
+    record = model.create(:title => "Some nice post", :user => user)
+    expect(record.permalink).to eq("some-nice-post-2")
+
+    # Create posts for another user
+    record = model.create(:title => "Some nice post", :user => another_user)
+    expect(record.permalink).to eq("some-nice-post")
+
+    record = model.create(:title => "Some nice post", :user => another_user)
+    expect(record.permalink).to eq("some-nice-post-2")
+  end
+
   it "returns param for unique permalink" do
     model.permalink :title, :to_param => :permalink, :unique => true
 

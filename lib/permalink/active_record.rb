@@ -26,7 +26,8 @@ module Permalink
           to_column_name: options[:to],
           to_param: [options[:to_param]].flatten,
           unique: options[:unique],
-          force: options[:force]
+          force: options[:force],
+          scope: options[:scope]
         }
 
         before_validation :create_permalink
@@ -44,19 +45,28 @@ module Permalink
       end
 
       private
+
       def next_available_permalink(permalink)
         unique_permalink = permalink
+        scope = build_scope_for_permalink
 
         if self.class.permalink_options[:unique]
           suffix = 2
 
-          while self.class.where(to_permalink_name => unique_permalink).first
+          while scope.where(to_permalink_name => unique_permalink).first
             unique_permalink = "#{permalink}-#{suffix}"
             suffix += 1
           end
         end
 
         unique_permalink
+      end
+
+      def build_scope_for_permalink
+        search_scope = self.class.permalink_options[:scope]
+        scope = self.class.unscoped
+        scope = scope.where(search_scope => public_send(search_scope)) if search_scope
+        scope
       end
 
       def from_permalink_name
