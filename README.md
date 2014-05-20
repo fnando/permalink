@@ -1,5 +1,7 @@
 # Permalink
 
+[![Code Climate](https://codeclimate.com/github/fnando/permalink.png)](https://codeclimate.com/github/fnando/permalink)
+
 ## Instalation
 
     gem install permalink
