@@ -3,7 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/fnando/permalink.png)](https://codeclimate.com/github/fnando/permalink)
 [![Build Status](https://travis-ci.org/fnando/permalink.svg)](https://travis-ci.org/fnando/permalink)
 
-## Instalation
+## Installation
 
     gem install permalink
 
