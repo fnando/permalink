@@ -2,6 +2,8 @@
 
 [![Code Climate](https://codeclimate.com/github/fnando/permalink.png)](https://codeclimate.com/github/fnando/permalink)
 [![Build Status](https://travis-ci.org/fnando/permalink.svg)](https://travis-ci.org/fnando/permalink)
+[![Gem](https://img.shields.io/gem/v/permalink.svg)](https://rubygems.org/permalink)
+[![Gem](https://img.shields.io/gem/dt/permalink.svg)](https://rubygems.org/permalink)
 
 ## Installation
 
