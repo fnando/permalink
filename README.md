@@ -21,7 +21,7 @@ You can specify the permalink field:
 
 ```ruby
 class page < ActiveRecord::Base
-  permalink :title, :to => :title_permalink
+  permalink :title, to: "title_permalink"
 end
 ```
 
@@ -40,7 +40,7 @@ You can define the `to_param` format:
 
 ```ruby
 class Page < ActiveRecord::Base
-  permalink :title, :to_param => %w(id permalink page)
+  permalink :title, to_param: %w(id permalink page)
 end
 ```
 
@@ -50,7 +50,7 @@ If you want to generate unique permalink, use the `:unique` option:
 
 ```ruby
 class Page < ActiveRecord::Base
-  permalink :title, :unique => true, :to_param => :permalink
+  permalink :title, unique: true, to_param: "permalink"
 end
 ```
 
@@ -59,7 +59,7 @@ The permalink can be tied to a given scope. Let's say you want to have unique pe
 ```ruby
 class Page < ActiveRecord::Base
   belongs_to :user
-  permalink :title, :unique => true, :scope => :user_id
+  permalink :title, unique: true, scope: "user_id"
 end
 
 user = User.first
@@ -81,13 +81,13 @@ You can force the permalink generation by setting the `:force` option.
 
 ```ruby
 class Page < ActiveRecord::Base
-  permalink :title, :force => true
+  permalink :title, force: true
 end
 ```
 
 ## License
 
-Copyright (c) 2011 Nando Vieira, released under the MIT license
+Copyright (c) 2011-2015 Nando Vieira, released under the MIT license
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

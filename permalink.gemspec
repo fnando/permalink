@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Nando Vieira"]
   s.email       = ["fnando.vieira@gmail.com"]
   s.homepage    = "http://rubygems.org/gems/permalink"
-  s.summary     = "Generate permalink attributes on ActiveRecord"
+  s.summary     = "Generate permalink attributes on ActiveModel/ActiveRecord"
   s.description = s.summary
 
   s.files         = `git ls-files`.split("\n")
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_development_dependency "activerecord"
-  s.add_development_dependency "sqlite3-ruby"
-  s.add_development_dependency "rspec"
+  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "minitest-utils"
   s.add_development_dependency "rake"
 end

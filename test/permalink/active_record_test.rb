@@ -1,50 +1,50 @@
-require "spec_helper"
+require "test_helper"
 
-describe Permalink::ActiveRecord do
+class ActiveRecordTest < Minitest::Test
   let(:model) { Post }
 
-  before do
+  setup do
     model.delete_all
     model.permalink :title
   end
 
-  it "responds to options" do
-    expect(model).to respond_to(:permalink_options)
+  test "responds to options" do
+    assert model.respond_to?(:permalink_options)
   end
 
-  it "uses default options" do
+  test "uses default options" do
     model.permalink :title
     record = model.create(:title => "Some nice post")
-    expect(record.permalink).to eq("some-nice-post")
+    assert_equal "some-nice-post", record.permalink
   end
 
-  it "uses custom attribute" do
+  test "uses custom attribute" do
     model.permalink :title, :to => :slug
     record = model.create(:title => "Some nice post")
-    expect(record.slug).to eq("some-nice-post")
+    assert_equal "some-nice-post", record.slug
   end
 
-  it "sets permalink before_save" do
+  test "sets permalink before_save" do
     record = model.new(:title => "Some nice post")
-    expect(record.permalink).to be_nil
+    assert_nil record.permalink
     record.valid?
-    expect(record.permalink).to eq("some-nice-post")
+    assert_equal "some-nice-post", record.permalink
   end
 
-  it "creates unique permalinks" do
+  test "creates unique permalinks" do
     model.permalink :title, :unique => true
 
     record = model.create(:title => "Some nice post")
-    expect(record.permalink).to eq("some-nice-post")
+    assert_equal "some-nice-post", record.permalink
 
     record = model.create(:title => "Some nice post")
-    expect(record.permalink).to eq("some-nice-post-2")
+    assert_equal "some-nice-post-2", record.permalink
 
     record = model.create(:title => "Some nice post")
-    expect(record.permalink).to eq("some-nice-post-3")
+    assert_equal "some-nice-post-3", record.permalink
   end
 
-  it "creates unique permalinks based on scope" do
+  test "creates unique permalinks based on scope" do
     model.permalink :title, :unique => true, :scope => :user_id
 
     user = User.create!
@@ -52,97 +52,97 @@ describe Permalink::ActiveRecord do
 
     # Create posts for user
     record = model.create(:title => "Some nice post", :user => user)
-    expect(record.permalink).to eq("some-nice-post")
+    assert_equal "some-nice-post", record.permalink
 
     record = model.create(:title => "Some nice post", :user => user)
-    expect(record.permalink).to eq("some-nice-post-2")
+    assert_equal "some-nice-post-2", record.permalink
 
     # Create posts for another user
     record = model.create(:title => "Some nice post", :user => another_user)
-    expect(record.permalink).to eq("some-nice-post")
+    assert_equal "some-nice-post", record.permalink
 
     record = model.create(:title => "Some nice post", :user => another_user)
-    expect(record.permalink).to eq("some-nice-post-2")
+    assert_equal "some-nice-post-2", record.permalink
   end
 
-  it "returns param for unique permalink" do
+  test "returns param for unique permalink" do
     model.permalink :title, :to_param => :permalink, :unique => true
 
     record = model.create(:title => "Ruby")
-    expect(record.to_param).to eq("ruby")
+    assert_equal "ruby", record.to_param
 
     record = model.create(:title => "Ruby")
-    expect(record.to_param).to eq("ruby-2")
+    assert_equal "ruby-2", record.to_param
   end
 
-  it "overrides to_param with custom fields" do
+  test "overrides to_param with custom fields" do
     model.permalink :title, :to => :slug, :to_param => [:slug, :id, "page"]
 
     record = model.create(:title => "Some nice post")
-    expect(record.to_param).to eq("some-nice-post-#{record.id}-page")
+    assert_equal "some-nice-post-#{record.id}-page", record.to_param
   end
 
-  it "ignores blank attributes from to_param" do
+  test "ignores blank attributes from to_param" do
     model.permalink :title, :to_param => [:id, "    ", nil, "\t", :permalink]
 
     record = model.create(:title => "Some nice post")
-    expect(record.to_param).to eq("#{record.id}-some-nice-post")
+    assert_equal "#{record.id}-some-nice-post", record.to_param
   end
 
-  it "sets permalink if permalink is blank" do
+  test "sets permalink if permalink is blank" do
     record = model.create(:title => "Some nice post", :permalink => "  ")
-    expect(record.permalink).to eq("some-nice-post")
+    assert_equal "some-nice-post", record.permalink
   end
 
-  it "keeps defined permalink" do
+  test "keeps defined permalink" do
     record = model.create(:title => "Some nice post", :permalink => "awesome-post")
-    expect(record.permalink).to eq("awesome-post")
+    assert_equal "awesome-post", record.permalink
   end
 
-  it "creates unique permalinks for number-ended titles" do
+  test "creates unique permalinks for number-ended titles" do
     model.permalink :title, :unique => true
 
     record = model.create(:title => "Rails 3")
-    expect(record.permalink).to eq("rails-3")
+    assert_equal "rails-3", record.permalink
 
     record = model.create(:title => "Rails 3")
-    expect(record.permalink).to eq("rails-3-2")
+    assert_equal "rails-3-2", record.permalink
   end
 
-  it "forces permalink" do
+  test "forces permalink" do
     model.permalink :title, :force => true
 
     record = model.create(:title => "Some nice post")
     record.update_attributes :title => "Awesome post"
 
-    expect(record.permalink).to eq("awesome-post")
+    assert_equal "awesome-post", record.permalink
   end
 
-  it "forces permalink and keep unique" do
+  test "forces permalink and keep unique" do
     model.permalink :title, :force => true, :unique => true
 
     record = model.create(:title => "Some nice post")
 
     record.update_attributes :title => "Awesome post"
-    expect(record.permalink).to eq("awesome-post")
+    assert_equal "awesome-post", record.permalink
 
     record = model.create(:title => "Awesome post")
-    expect(record.permalink).to eq("awesome-post-2")
+    assert_equal "awesome-post-2", record.permalink
   end
 
-  it "keeps same permalink when another field changes" do
+  test "keeps same permalink when another field changes" do
     model.permalink :title, :force => true, :unique => true
 
     record = model.create(:title => "Some nice post")
     record.update_attributes :description => "some description"
 
-    expect(record.permalink).to eq("some-nice-post")
+    assert_equal "some-nice-post", record.permalink
   end
 
-  it "overrides to_param method" do
+  test "overrides to_param method" do
     model.permalink :title
 
     record = model.create(:title => "Some nice post")
-    expect(record.to_param).to eql("#{record.id}-some-nice-post")
+    assert_equal "#{record.id}-some-nice-post", record.to_param
   end
 end

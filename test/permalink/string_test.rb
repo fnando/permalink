@@ -1,7 +1,6 @@
-# -*- encoding: utf-8 -*-
-require "spec_helper"
+require "test_helper"
 
-describe "String#to_permalink" do
+class StringTest < Minitest::Test
   {
     'This IS a Tripped out title!!.!1  (well/ not really)' => 'this-is-a-tripped-out-title-1-well-not-really',
     '////// meph1sto r0x ! \\\\\\' => 'meph1sto-r0x',
@@ -14,8 +13,8 @@ describe "String#to_permalink" do
     "can't do it" => "cant-do-it",
     "i'm a dog" => "im-a-dog"
   }.each do |from, to|
-    it "creates permalink for #{from}" do
-      expect(from.to_permalink).to eql(to)
+    test "creates permalink for #{from}" do
+      assert_equal to, from.to_permalink
     end
   end
 end
