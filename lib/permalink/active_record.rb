@@ -8,9 +8,9 @@ module Permalink
 
     module ClassMethods
       # permalink :title
-      # permalink :title, :to => :custom_permalink_field
-      # permalink :title, :to => :permalink, :to_param => [:id, :permalink]
-      # permalink :title, :unique => true
+      # permalink :title, to: :custom_permalink_field
+      # permalink :title, to: :permalink, to_param: [:id, :permalink]
+      # permalink :title, unique: true
       def permalink(from_column, options = {})
         include InstanceMethods
 
@@ -93,7 +93,7 @@ module Permalink
       def create_permalink
         write_attribute(
           to_permalink_name,
-          next_available_permalink(from_permalink_value.to_s.to_permalink)
+          next_available_permalink(Permalink.generate(from_permalink_value.to_s))
         ) if update_permalink?
       end
     end

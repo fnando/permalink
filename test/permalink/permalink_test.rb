@@ -1,6 +1,6 @@
 require "test_helper"
 
-class StringTest < Minitest::Test
+class PermalinkTest < Minitest::Test
   {
     'This IS a Tripped out title!!.!1  (well/ not really)' => 'this-is-a-tripped-out-title-1-well-not-really',
     '////// meph1sto r0x ! \\\\\\' => 'meph1sto-r0x',
@@ -14,7 +14,7 @@ class StringTest < Minitest::Test
     "i'm a dog" => "im-a-dog"
   }.each do |from, to|
     test "creates permalink for #{from}" do
-      assert_equal to, from.to_permalink
+      assert_equal to, Permalink.generate(from)
     end
   end
 end
