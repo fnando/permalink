@@ -1,7 +1,7 @@
 module Permalink
   module Normalizations
     module Transliteration
-      def self.call(input, _options)
+      def self.call(input, _options = nil)
         ActiveSupport::Multibyte::Chars.new(input)
           .normalize(:kd)
           .gsub(/[^\x00-\x7F]/, "")
