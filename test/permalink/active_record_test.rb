@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class ActiveRecordTest < Minitest::Test
@@ -123,7 +125,7 @@ class ActiveRecordTest < Minitest::Test
     model.permalink :title, force: true
 
     record = model.create(title: "Some nice post")
-    record.update_attributes title: "Awesome post"
+    record.update title: "Awesome post"
 
     assert_equal "awesome-post", record.permalink
   end
@@ -133,7 +135,7 @@ class ActiveRecordTest < Minitest::Test
 
     record = model.create(title: "Some nice post")
 
-    record.update_attributes title: "Awesome post"
+    record.update title: "Awesome post"
     assert_equal "awesome-post", record.permalink
 
     record = model.create(title: "Awesome post")
@@ -144,7 +146,7 @@ class ActiveRecordTest < Minitest::Test
     model.permalink :title, force: true, unique: true
 
     record = model.create(title: "Some nice post")
-    record.update_attributes description: "some description"
+    record.update description: "some description"
 
     assert_equal "some-nice-post", record.permalink
   end
@@ -164,7 +166,8 @@ class ActiveRecordTest < Minitest::Test
   end
 
   test "uses custom normalization" do
-    model.permalink :title, normalizations: [->(input, options) { input.to_s.reverse }]
+    model.permalink :title,
+                    normalizations: [->(input, _options) { input.to_s.reverse }]
     record = model.create(title: "Some nice post")
 
     assert_equal "Some nice post".reverse, record.permalink

@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+require "simplecov"
+SimpleCov.start
+
 require "bundler/setup"
 require "permalink"
 
@@ -10,4 +15,3 @@ ActiveRecord::Base
 load("support/schema.rb")
 require "support/user"
 require "support/post"
-

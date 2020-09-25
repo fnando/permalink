@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Permalink
   module Normalizations
     module Transliteration
       def self.call(input, _options = nil)
-        ActiveSupport::Multibyte::Chars.new(input)
-          .normalize(:kd)
+        input
+          .unicode_normalize(:nfkd)
           .gsub(/[^\x00-\x7F]/, "")
           .to_s
       end

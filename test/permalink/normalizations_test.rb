@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class NormalizationsTest < Minitest::Test
@@ -7,7 +9,8 @@ class NormalizationsTest < Minitest::Test
   end
 
   test "applies transliteration" do
-    assert_equal "aeiou", Permalink::Normalizations::Transliteration.call("áéíóú")
+    assert_equal "aeiou",
+                 Permalink::Normalizations::Transliteration.call("áéíóú")
   end
 
   test "applies downcasing" do
@@ -15,22 +18,31 @@ class NormalizationsTest < Minitest::Test
   end
 
   test "applies lead/trailing dashes replacement" do
-    assert_equal "test", Permalink::Normalizations::LeadingTrailingDashes.call("-test-")
+    permalink = Permalink::Normalizations::LeadingTrailingDashes.call("-test-")
+    assert_equal "test", permalink
   end
 
   test "applies multiple dashes replacement" do
-    assert_equal "nice-permalink", Permalink::Normalizations::MultipleDashes.call("nice----permalink")
+    permalink =
+      Permalink::Normalizations::MultipleDashes.call("nice----permalink")
+    assert_equal "nice-permalink", permalink
   end
 
   test "applies multiple dashes replacement with custom separator" do
-    assert_equal "nice_permalink", Permalink::Normalizations::MultipleDashes.call("nice----permalink", separator: "_")
+    permalink = Permalink::Normalizations::MultipleDashes
+                .call("nice----permalink", separator: "_")
+    assert_equal "nice_permalink", permalink
   end
 
   test "applies non-alphanumeric replacement" do
-    assert_equal "nice-permalink-", Permalink::Normalizations::NonAlphanumeric.call("nice-permalink!")
+    permalink =
+      Permalink::Normalizations::NonAlphanumeric.call("nice-permalink!")
+    assert_equal "nice-permalink-", permalink
   end
 
   test "applies non-alphanumeric replacement with custom separator" do
-    assert_equal "nice_permalink_", Permalink::Normalizations::NonAlphanumeric.call("nice-permalink!", separator: "_")
+    permalink = Permalink::Normalizations::NonAlphanumeric
+                .call("nice-permalink!", separator: "_")
+    assert_equal "nice_permalink_", permalink
   end
 end

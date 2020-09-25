@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Permalink
   module ActiveRecord
     def self.included(base)
@@ -16,14 +18,14 @@ module Permalink
       def permalink(from_column, options = {})
         include InstanceMethods
 
-        options = options.reverse_merge({
-          to_param: [:id, :permalink],
+        options = options.reverse_merge(
+          to_param: %i[id permalink],
           to: :permalink,
           unique: false,
           force: false,
           separator: "-",
           normalizations: Permalink::DEFAULT_NORMALIZATIONS
-        })
+        )
 
         self.permalink_options = {
           from_column_name: from_column,
@@ -45,14 +47,12 @@ module Permalink
       def to_param
         to_param_option = permalink_options[:to_param]
 
-        to_param_option.compact.map {|name|
+        to_param_option.compact.map do |name|
           respond_to?(name) ? public_send(name).to_s : name.to_s
-        }.reject(&:blank?).join(permalink_options[:separator])
+        end.reject(&:blank?).join(permalink_options[:separator])
       end
 
-      private
-
-      def next_available_permalink(permalink)
+      private def next_available_permalink(permalink)
         unique_permalink = permalink
         scope = build_scope_for_permalink
 
@@ -60,7 +60,9 @@ module Permalink
           suffix = 2
 
           while scope.where(to_permalink_name => unique_permalink).first
-            unique_permalink = [permalink, suffix].join(permalink_options[:separator])
+            unique_permalink =
+              [permalink, suffix].join(permalink_options[:separator])
+
             suffix += 1
           end
         end
@@ -68,42 +70,53 @@ module Permalink
         unique_permalink
       end
 
-      def build_scope_for_permalink
+      private def build_scope_for_permalink
         search_scope = permalink_options[:scope]
         scope = self.class.unscoped
-        scope = scope.where(search_scope => public_send(search_scope)) if search_scope
+
+        if search_scope
+          scope = scope.where(search_scope => public_send(search_scope))
+        end
+
         scope
       end
 
-      def from_permalink_name
+      private def from_permalink_name
         permalink_options[:from_column_name]
       end
 
-      def to_permalink_name
+      private def to_permalink_name
         permalink_options[:to_column_name]
       end
 
-      def from_permalink_value
+      private def from_permalink_value
         read_attribute(from_permalink_name)
       end
 
-      def to_permalink_value
+      private def to_permalink_value
         read_attribute(to_permalink_name)
       end
 
-      def update_permalink?
+      private def update_permalink?
         changes[from_permalink_name] &&
         (permalink_options[:force] || to_permalink_value.blank?)
       end
 
-      def create_permalink
+      private def create_permalink
+        return unless update_permalink?
+
+        permalink = Permalink.generate(
+          from_permalink_value.to_s,
+          permalink_generator_options
+        )
+
         write_attribute(
           to_permalink_name,
-          next_available_permalink(Permalink.generate(from_permalink_value.to_s, permalink_generator_options))
-        ) if update_permalink?
+          next_available_permalink(permalink)
+        )
       end
 
-      def permalink_generator_options
+      private def permalink_generator_options
         {
           separator: permalink_options[:separator],
           normalizations: permalink_options[:normalizations]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "active_record"
 require "permalink/active_record"
 require "permalink/normalizations/contraction"
@@ -15,12 +17,12 @@ module Permalink
     Normalizations::NonAlphanumeric,
     Normalizations::MultipleDashes,
     Normalizations::LeadingTrailingDashes
-  ]
+  ].freeze
 
   DEFAULT_OPTIONS = {
     normalizations: DEFAULT_NORMALIZATIONS,
     separator: "-"
-  }
+  }.freeze
 
   def self.generate(input, options = DEFAULT_OPTIONS)
     options = DEFAULT_OPTIONS.merge(options)
@@ -33,4 +35,4 @@ module Permalink
   end
 end
 
-ActiveRecord::Base.send(:include, Permalink::ActiveRecord)
+ActiveRecord::Base.include Permalink::ActiveRecord
